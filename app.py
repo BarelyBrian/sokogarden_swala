@@ -84,8 +84,10 @@ def get_products():
     cursor=connection.cursor(pymysql.cursors.DictCursor)
     sql='SELECT * FROM product_details'
     cursor.execute(sql)
+    # fetch all records in a dictionary format
+    product_details= cursor.fetchall()
     connection.commit()
-    return jsonify({'success':"filename"})
+    return jsonify(product_details)
 
 if __name__=='__main__':
     app.run(debug=True)
