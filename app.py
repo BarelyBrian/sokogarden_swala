@@ -144,7 +144,7 @@ def mpesa_payment():
             "TransactionDesc": "Payments for Products"
         }
 
-        # POPULAING THE HTTP HEADER, PROVIDE THE TOKEN ISSUED EARLIER
+        # POPULAING THE HTTP HEADER, PROVIDE THE TOKEN THAT WAS ISSUED EARLIER
         headers = {
             "Authorization": access_token,
             "Content-Type": "application/json"
