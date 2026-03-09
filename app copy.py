@@ -18,7 +18,7 @@ def signup():
     email= request.form['email']    
     phone= request.form['phone']
     # connection to database
-    connection= pymysql.connect(host='mysql-brianswala.alwaysdata.net',user='brianswala',password='modcom2026',database='brianswala_dailyyoghurt')
+    connection= pymysql.connect(host='localhost',user='root',password='',database='dailyyoghurt_swala')
 # cursor object= initialize connection/manipulation of the database
     cursor=connection.cursor()
     sql='INSERT INTO users(username,password,email,phone)values(%s,%s,%s,%s)'
@@ -37,7 +37,7 @@ def signin():
     username= request.form['username']
     password= request.form['password']
     # connect to 
-    connection= pymysql.connect(host='mysql-brianswala.alwaysdata.net', user='brianswala', password='modcom2026',database='brianswala_dailyyoghurt')
+    connection= pymysql.connect(host='localhost', user='root', password='',database='dailyyoghurt_swala')
     # inserting cursor
     cursor=connection.cursor(pymysql.cursors.DictCursor)
     # do the sql query.
@@ -67,7 +67,7 @@ def add_product():
     photo_path=os.path.join(app.config['UPLOAD_FOLDER'],filename)
     product_photo.save(photo_path)
     # setting up connection
-    connection=pymysql.connect(host='mysql-brianswala.alwaysdata.net', user='brianswala', password='modcom2026', database='brianswala_dailyyoghurt')
+    connection=pymysql.connect(host='localhost', user='root', password='', database='dailyyoghurt_swala')
     # inserting cursor
     cursor=connection.cursor()
     sql= 'INSERT INTO product_details(product_name,product_description,product_cost,product_photo)values(%s,%s,%s,%s)'
@@ -83,7 +83,7 @@ def add_product():
 # get products
 @app.route('/api/get_product_details')
 def get_products():
-    connection=pymysql.connect(host='mysql-brianswala.alwaysdata.net',user='brianswala',password='modcom2026',database='brianswala_dailyyoghurt')
+    connection=pymysql.connect(host='localhost',user='root',password='',database='dailyyoghurt_swala')
     cursor=connection.cursor(pymysql.cursors.DictCursor)
     sql='SELECT * FROM product_details'
     cursor.execute(sql)
@@ -122,7 +122,7 @@ def mpesa_payment():
         #  GETTING THE PASSWORD
         timestamp = datetime.datetime.today().strftime('%Y%m%d%H%M%S')  # Current Time
         passkey = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'  # Passkey(Safaricom Provided)
-        business_short_code = "174379"  # Test Paybill (Safaricom Provided)
+        business_short_code = "174379"  # Test Paybile (Safaricom Provided)
         # Combine above 3 Strings to get data variable
         data = business_short_code + passkey + timestamp
         # Encode to Base64
@@ -159,5 +159,5 @@ def mpesa_payment():
         # Give a Response
         return jsonify({"message": "An MPESA Prompt has been sent to Your Phone, Please Check & Complete Payment"})
 
-# if __name__=='__main__':
-#     app.run(debug=True)
+if __name__=='__main__':
+    app.run(debug=True)
